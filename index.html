@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Netto-Stundenlohn berechnen: Vergleiche deinen klassischen und effektiven Stundenlohn mit Arbeitsweg, Pausen, Fahrtkosten und Modell-Abgaben.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://example.com/gehalts-transparenz-rechner">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:title" content="Gehalts-Transparenz-Rechner – Netto-Stundenlohn berechnen">
+  <meta property="og:description" content="Verstehe, wo dein Bruttogehalt bleibt und wie Pendelzeit und Fahrtkosten deinen effektiven Stundenlohn verändern.">
+  <meta property="og:url" content="https://example.com/gehalts-transparenz-rechner">
+  <meta property="og:image" content="https://example.com/gehalts-transparenz-rechner-preview.jpg">
+  <meta property="og:image:alt" content="Vorschau des Gehalts-Transparenz-Rechners">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Gehalts-Transparenz-Rechner – Netto-Stundenlohn berechnen">
+  <meta name="twitter:description" content="Berechne deinen effektiven Netto-Stundenlohn inklusive Pendelzeit und Fahrtkosten.">
+  <meta name="twitter:image" content="https://example.com/gehalts-transparenz-rechner-preview.jpg">
+  <title>Gehalts-Transparenz-Rechner – Netto-Stundenlohn berechnen</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebApplication","name":"Gehalts-Transparenz-Rechner","url":"https://example.com/gehalts-transparenz-rechner","description":"Clientseitiger Rechner für klassischen und effektiven Netto-Stundenlohn mit Arbeitsweg, Fahrtkosten und Modell-Abgaben.","applicationCategory":"FinanceApplication","operatingSystem":"Any","inLanguage":"de"}
+  </script>
+  <link rel="stylesheet" href="./css/styles.css">
+  <script type="module" src="./js/main.js"></script>
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-900">
+  <a class="skip-link" href="#main-content">Zum Hauptinhalt springen</a>
+
+  <header class="border-b border-slate-200 bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-6 sm:px-6 lg:px-8">
+      <p class="text-sm font-semibold uppercase tracking-wide text-indigo-600">Finanzielle Klarheit</p>
+      <h1 class="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">Gehalts-Transparenz-Rechner</h1>
+      <p class="mt-3 max-w-2xl text-lg font-medium leading-8 text-slate-700">Was bleibt von deinem Gehalt pro tatsächlich aufgewendeter Arbeitsstunde?</p>
+      <p class="mt-2 max-w-2xl text-base leading-7 text-slate-600">Berücksichtige Arbeitszeit, Pausen, Arbeitsweg, Fahrtkosten und Abgaben für eine nachvollziehbare persönliche Orientierung.</p>
+      <p class="privacy-note" role="note">Privat und lokal: Die Berechnung läuft in deinem Browser. Eingaben werden nur auf deinem Gerät gespeichert, wenn du das Speichern nutzt.</p>
+    </div>
+  </header>
+
+  <main id="main-content" class="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
+    <div class="grid gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
+      <section id="input-section" aria-labelledby="input-heading" class="card">
+        <div class="card-heading">
+          <p class="eyebrow">Schritt 1</p>
+          <h2 id="input-heading" class="section-title">Deine Angaben</h2>
+          <p class="section-intro">Pflichtfelder sind mit einem Stern (*) gekennzeichnet. Alle Werte kannst du später anpassen.</p>
+        </div>
+        <form id="calculator-form" novalidate>
+          <fieldset class="form-group">
+            <legend class="form-legend">Einkommen</legend>
+            <div class="form-grid">
+              <div class="field field-wide"><label for="gross-income">Bruttogehalt <span aria-hidden="true">*</span></label><div class="input-with-unit"><input id="gross-income" name="grossIncome" type="number" min="0" step="100" value="4000" inputmode="decimal" autocomplete="off" required aria-describedby="gross-income-help gross-income-error"><span>€</span></div><p id="gross-income-help" class="help-text">Dein Gehalt vor Steuern und Abgaben.</p><p id="gross-income-error" class="error-message" data-error-for="gross-income" data-field-error role="alert"></p></div>
+              <div class="field"><label for="income-interval">Gehaltsintervall <span aria-hidden="true">*</span></label><select id="income-interval" name="incomeInterval" required><option value="monthly" selected>monatlich</option><option value="yearly">jährlich</option><option value="hourly">stündlich</option></select></div>
+            </div>
+          </fieldset>
+          <fieldset class="form-group"><legend class="form-legend">Arbeitszeit</legend><div class="form-grid">
+            <div class="field"><label for="hours-per-day">Arbeitsstunden pro Tag <span aria-hidden="true">*</span></label><div class="input-with-unit"><input id="hours-per-day" name="hoursPerDay" type="number" min="0" max="24" step="0.25" value="8" inputmode="decimal" required aria-describedby="hours-per-day-error"><span>Std.</span></div><p id="hours-per-day-error" class="error-message" data-field-error role="alert"></p></div>
+            <div class="field"><label for="days-per-week">Arbeitstage pro Woche <span aria-hidden="true">*</span></label><div class="input-with-unit"><input id="days-per-week" name="daysPerWeek" type="number" min="1" max="7" step="1" value="5" required aria-describedby="days-per-week-error"><span>Tage</span></div><p id="days-per-week-error" class="error-message" data-field-error role="alert"></p></div>
+            <div class="field"><label for="break-per-day">Unbezahlte Pause pro Tag</label><div class="input-with-unit"><input id="break-per-day" name="breakPerDay" type="number" min="0" max="12" step="0.25" value="0.5" inputmode="decimal" aria-describedby="break-per-day-error"><span>Std.</span></div><p id="break-per-day-error" class="error-message" data-field-error role="alert"></p></div>
+            <div class="field"><label for="vacation-days">Urlaubstage pro Jahr</label><div class="input-with-unit"><input id="vacation-days" name="vacationDays" type="number" min="0" max="365" step="1" value="30"><span>Tage</span></div></div>
+            <div class="field"><label for="free-days">Feiertage / freie Tage</label><div class="input-with-unit"><input id="free-days" name="freeDays" type="number" min="0" max="365" step="1" value="11"><span>Tage/Jahr</span></div><p class="help-text">Zusätzliche arbeitsfreie Tage pro Jahr.</p></div>
+          </div></fieldset>
+          <fieldset class="form-group"><legend class="form-legend">Arbeitsweg &amp; Fahrtkosten</legend><div class="form-grid">
+            <div class="field"><label for="distance-km">Einfache Strecke</label><div class="input-with-unit"><input id="distance-km" name="distanceKm" type="number" min="0" step="0.1" value="15" inputmode="decimal"><span>km</span></div></div>
+            <div class="field"><label for="transport-mode">Verkehrsmittel</label><select id="transport-mode" name="transportMode"><option value="car" selected>Auto</option><option value="public">ÖPNV</option><option value="bike">Fahrrad</option><option value="walk">Zu Fuß</option><option value="other">Sonstiges</option></select></div>
+            <div class="field"><label for="travel-time">Fahrzeit pro Strecke</label><div class="input-with-unit"><input id="travel-time" name="travelTime" type="number" min="0" max="1440" step="5" value="30"><span>Min.</span></div></div>
+            <div class="field"><label for="commute-days">Arbeitstage mit Arbeitsweg</label><div class="input-with-unit"><input id="commute-days" name="commuteDays" type="number" min="0" max="7" step="1" value="5"><span>Tage/Woche</span></div></div>
+            <div class="field field-wide"><label for="cost-per-km">Kosten pro Kilometer</label><div class="input-with-unit"><input id="cost-per-km" name="costPerKm" type="number" min="0" step="0.01" value="0.30" inputmode="decimal"><span>€/km</span></div><p class="help-text">Optional; bei Auto oder eigener Kostenschätzung.</p></div>
+          </div></fieldset>
+          <fieldset class="form-group"><legend class="form-legend">Abgaben</legend><p class="help-text mb-3">Vereinfachte, getrennte Orientierungswerte für die Modellrechnung. Sie ersetzen keine individuelle Lohnabrechnung.</p><div class="form-grid">
+            <div class="field"><label for="tax-rate">Effektiver Steueranteil</label><div class="input-with-unit"><input id="tax-rate" name="taxRate" type="number" min="0" max="100" step="0.1" value="25" aria-describedby="tax-rate-error"><span>%</span></div><p id="tax-rate-error" class="error-message" data-field-error role="alert"></p></div>
+            <div class="field"><label for="social-rate">Sozialabgabenanteil</label><div class="input-with-unit"><input id="social-rate" name="socialRate" type="number" min="0" max="100" step="0.1" value="20" aria-describedby="social-rate-error"><span>%</span></div><p id="social-rate-error" class="error-message" data-field-error role="alert"></p></div>
+            <div class="field"><label for="other-deductions">Sonstige Abzüge</label><div class="input-with-unit"><input id="other-deductions" name="otherDeductions" type="number" min="0" step="10" value="0"><span>€/Monat</span></div></div>
+          </div></fieldset>
+          <div class="form-actions"><button class="button button-primary" type="submit">Berechnung vorbereiten</button><button class="button button-secondary" id="reset-button" type="button">Zurücksetzen</button><button class="button button-ghost" id="save-button" type="button">Eingaben speichern</button><button class="button button-danger" id="clear-saved-button" type="button">Gespeicherte Eingaben löschen</button></div>
+          <p id="form-status" class="sr" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section id="results-section" aria-labelledby="results-heading" class="card">
+        <div class="card-heading">
+          <p class="eyebrow">Schritt 2</p>
+          <h2 id="results-heading" class="section-title">Dein Ergebnis</h2>
+          <p class="section-intro">Dein Einkommen pro tatsächlich aufgewendeter Stunde – inklusive Arbeitsweg und Fahrtkosten.</p><p class="notice" role="note">Modellrechnung: Die Werte sind eine Näherung und ersetzen keine individuelle deutsche Lohnabrechnung. Steuerklasse, Freibeträge und weitere Faktoren können abweichen.</p>
+        </div>
+        <div id="results-placeholder" class="placeholder min-h-48" aria-live="polite">
+          <span class="placeholder-icon" aria-hidden="true">€</span>
+          <p class="font-medium text-slate-700">Ergebnisbereich</p>
+          <p class="mt-1 text-sm text-slate-500">Noch keine Berechnung vorhanden</p>
+        </div>
+      </section>
+    </div>
+
+    <section id="visualizations-section" aria-labelledby="visualizations-heading" class="card mt-8">
+      <div class="card-heading">
+        <p class="eyebrow">Überblick</p>
+        <h2 id="visualizations-heading" class="section-title">Deine Gehaltsstruktur</h2>
+        <p class="section-intro">Visualisierungen helfen dir später, die einzelnen Einflussfaktoren schnell zu verstehen.</p>
+      </div>
+      <div id="charts-placeholder" class="charts-area" aria-label="Drei zugängliche Datenvisualisierungen"></div>
+    </section>
+
+    <section id="explanation-section" aria-labelledby="explanation-heading" class="mt-8 rounded-2xl border-indigo-100 bg-indigo-50 p-6">
+      <p class="eyebrow">Gut zu wissen</p>
+      <h2 id="explanation-heading" class="section-title mt-2">So funktioniert die Berechnung</h2>
+      <div id="explanation-placeholder" class="mt-4 max-w-3xl text-sm leading-7 text-slate-700">
+        <h3 class="font-semibold text-slate-900">Was bedeutet Netto-Stundenlohn?</h3>
+        <p>Der Netto-Stundenlohn setzt dein Einkommen nach den modellierten Abgaben ins Verhältnis zu deinen bezahlten Arbeitsstunden. Der effektive Stundenlohn geht weiter: Er berücksichtigt zusätzlich unbezahlte Pausen, die Zeit für den Arbeitsweg und geschätzte Fahrtkosten.</p>
+        <h3 class="mt-4 font-semibold text-slate-900">Warum Pendelzeit und Fahrtkosten zählen</h3>
+        <p>Pendelzeit ist Zeit, die für die Arbeit aufgewendet wird, aber normalerweise nicht als Arbeitszeit vergütet wird. Fahrtkosten sind ein privater Aufwand und keine staatliche Abgabe. Beide Faktoren können deshalb den Betrag pro tatsächlich gebundener Stunde reduzieren.</p>
+        <h3 class="mt-4 font-semibold text-slate-900">Datenschutz und Aussagekraft</h3>
+        <p>Die Berechnungen laufen lokal in deinem Browser. Wenn du das Speichern nutzt, bleiben die Eingaben ausschließlich in deinem Browser. Sie werden nicht automatisch an einen Server übertragen. Steuern und Sozialabgaben werden hier vereinfacht modelliert und können eine individuelle Steuer- oder Rechtsberatung beziehungsweise Lohnabrechnung nicht ersetzen.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-slate-200 bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-6 text-sm text-slate-500 sm:px-6 lg:px-8">
+      <p>Gehalts-Transparenz-Rechner · Eine clientseitige Orientierungshilfe</p>
+    </div>
+  </footer>
+</body>
+</html>
