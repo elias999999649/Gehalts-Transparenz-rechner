@@ -1,0 +1,16 @@
+{
+  "name": "Gehalts-Transparenz-Rechner",
+  "short_name": "Gehaltsrechner",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#4f46e5",
+  "description": "Berechne deinen effektiven Netto-Stundenlohn inklusive Pendelzeit und Fahrtkosten.",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "48x48 32x32 16x16",
+      "type": "image/x-icon"
+    }
+  ]
+}
