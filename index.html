@@ -6,17 +6,19 @@
   <meta name="description" content="Netto-Stundenlohn berechnen: Vergleiche deinen klassischen und effektiven Stundenlohn mit Arbeitsweg, Pausen, Fahrtkosten und Modell-Abgaben.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://echter-stundenlohn.netlify.app/">
+  <link rel="alternate" hreflang="de" href="https://echter-stundenlohn.netlify.app/">
+  <link rel="alternate" hreflang="x-default" href="https://echter-stundenlohn.netlify.app/">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="de_DE">
   <meta property="og:title" content="Gehalts-Transparenz-Rechner – Netto-Stundenlohn berechnen">
   <meta property="og:description" content="Verstehe, wo dein Bruttogehalt bleibt und wie Pendelzeit und Fahrtkosten deinen effektiven Stundenlohn verändern.">
   <meta property="og:url" content="https://echter-stundenlohn.netlify.app/">
-  <meta property="og:image" content="https://echter-stundenlohn.netlify.app/preview.jpg">
+  <meta property="og:image" content="https://echter-stundenlohn.netlify.app/preview.svg">
   <meta property="og:image:alt" content="Vorschau des Gehalts-Transparenz-Rechners">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Gehalts-Transparenz-Rechner – Netto-Stundenlohn berechnen">
   <meta name="twitter:description" content="Berechne deinen effektiven Netto-Stundenlohn inklusive Pendelzeit und Fahrtkosten.">
-  <meta name="twitter:image" content="https://echter-stundenlohn.netlify.app/preview.jpg">
+  <meta name="twitter:image" content="https://echter-stundenlohn.netlify.app/preview.svg">
   <meta name="google-site-verification" content="32AvjcK3uxYoaVC07nU2wUPL-7oUiaDozN20cLM8kqM">
   <title>Gehalts-Transparenz-Rechner – Netto-Stundenlohn berechnen</title>
   <link rel="manifest" href="./manifest.json">
@@ -25,6 +27,38 @@
   <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"WebApplication","name":"Gehalts-Transparenz-Rechner","url":"https://echter-stundenlohn.netlify.app/","description":"Clientseitiger Rechner für klassischen und effektiven Netto-Stundenlohn mit Arbeitsweg, Fahrtkosten und Modell-Abgaben.","applicationCategory":"FinanceApplication","operatingSystem":"Any","inLanguage":"de"}
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Was ist der effektive Netto-Stundenlohn?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Der effektive Netto-Stundenlohn berücksichtigt neben Steuern, Sozialabgaben und unbezahlten Pausen auch die tatsächliche Pendelzeit sowie Fahrtkosten für den Arbeitsweg. Dadurch siehst du, was pro tatsächlich aufgewendeter Stunde übrig bleibt."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Wie wird der Pendelaufwand berechnet?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Aus einfacher Wegstrecke in Kilometer, Fahrtzeit, Verkehrsmittel und den geschätzten Fahrtkosten pro Kilometer ermittelt der Rechner den jährlichen Zeit- und Kostenaufwand für den Arbeitsweg."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Werden Daten auf einem Server gespeichert?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Nein, alle Berechnungen finden lokal in deinem Browser statt. Deine Gehalts- und Pendlerdaten werden nicht an Server übertragen."
+        }
+      }
+    ]
+  }
   </script>
   <link rel="stylesheet" href="./css/styles.css">
   <script type="module" src="./js/main.js"></script>

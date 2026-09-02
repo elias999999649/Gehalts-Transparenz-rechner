@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#f8fafc"/>
+  <rect x="60" y="60" width="1080" height="510" rx="24" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="120" y="180" font-family="system-ui, sans-serif" font-weight="700" font-size="56" fill="#0f172a">Gehalts-Transparenz-Rechner</text>
+  <text x="120" y="250" font-family="system-ui, sans-serif" font-weight="600" font-size="28" fill="#4f46e5">Was bleibt von deinem Gehalt pro echter Arbeitsstunde?</text>
+  <text x="120" y="340" font-family="system-ui, sans-serif" font-weight="400" font-size="22" fill="#475569">Inklusive Pendelzeit, Fahrtkosten, unbezahlten Pausen &amp; Abgaben.</text>
+  <rect x="120" y="420" width="340" height="70" rx="12" fill="#eef2ff"/>
+  <text x="150" y="463" font-family="system-ui, sans-serif" font-weight="700" font-size="24" fill="#4f46e5">echter-stundenlohn.netlify.app</text>
+</svg>
