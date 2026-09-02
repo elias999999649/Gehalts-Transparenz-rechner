@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://gehalts-rechner.netlify.app/sitemap.xml
