@@ -38,3 +38,11 @@
 ::1 - - [02/Sep/2026 14:35:49] "GET /js/ui.js HTTP/1.1" 200 -
 ::1 - - [02/Sep/2026 14:35:49] "GET /js/storage.js HTTP/1.1" 200 -
 ::1 - - [02/Sep/2026 14:35:49] "GET /js/charts.js HTTP/1.1" 200 -
+::1 - - [02/Sep/2026 15:15:18] "GET / HTTP/1.1" 200 -
+::1 - - [02/Sep/2026 15:15:18] "GET /css/styles.css HTTP/1.1" 200 -
+::1 - - [02/Sep/2026 15:15:18] "GET /js/main.js HTTP/1.1" 200 -
+::1 - - [02/Sep/2026 15:15:20] "GET /js/state.js HTTP/1.1" 200 -
+::1 - - [02/Sep/2026 15:15:20] "GET /js/calculations.js HTTP/1.1" 200 -
+::1 - - [02/Sep/2026 15:15:20] "GET /js/ui.js HTTP/1.1" 200 -
+::1 - - [02/Sep/2026 15:15:20] "GET /js/storage.js HTTP/1.1" 200 -
+::1 - - [02/Sep/2026 15:15:20] "GET /js/charts.js HTTP/1.1" 200 -
