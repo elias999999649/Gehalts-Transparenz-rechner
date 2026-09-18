@@ -75,10 +75,9 @@ body {
 
 .eyebrow {
   color: var(--primary);
-  font-size: 0.75rem;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
 .section-title {
@@ -349,10 +348,8 @@ body {
 }
 
 .result-label {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
   color: #64748b;
   margin-bottom: 0.3rem;
 }
@@ -382,12 +379,10 @@ body {
 }
 
 .comparison-box h3 {
-  font-size: 0.9rem;
-  font-weight: 800;
+  font-size: 0.95rem;
+  font-weight: 700;
   color: #0f172a;
   margin-bottom: 0.3rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
 }
 
 .comparison-box p {
