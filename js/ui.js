@@ -9,7 +9,8 @@ export function cacheElements(root = document) {
     resultsPlaceholder: root.querySelector('#results-placeholder'),
     chartsPlaceholder: root.querySelector('#charts-placeholder'),
     resultsSection: root.querySelector('#results-section'),
-    explanationPlaceholder: root.querySelector('#explanation-placeholder')
+    explanationPlaceholder: root.querySelector('#explanation-placeholder'),
+    presetButtons: root.querySelectorAll('[data-preset]')
   };
 }
 
@@ -38,7 +39,18 @@ function metric(label, value, primary = false) {
 export function renderResults(result, elements) {
   if (!elements?.resultsPlaceholder) return;
   elements.resultsPlaceholder.replaceChildren();
-  if (!result) return;
+  if (!result) {
+    const placeholder = document.createElement('div');
+    placeholder.className = 'placeholder';
+    placeholder.innerHTML = `
+      <span class="placeholder-icon" aria-hidden="true">€</span>
+      <p class="font-bold text-slate-700">Ergebnisbereich</p>
+      <p class="mt-1 text-sm text-slate-500">Gib deine Werte ein, um die Live-Berechnung zu starten.</p>
+    `;
+    elements.resultsPlaceholder.append(placeholder);
+    return;
+  }
+
   const grid = document.createElement('div'); grid.className = 'results-grid';
   grid.append(metric('Effektiver Netto-Stundenlohn', money(result.effectiveHourlyRate), true));
   grid.append(metric('Klassischer Netto-Stundenlohn', money(result.classicNetHourlyRate)));
@@ -48,17 +60,72 @@ export function renderResults(result, elements) {
   grid.append(metric('Gesamte aufgewendete Zeit', hours(result.totalTimeAnnual)));
   grid.append(metric('Abgaben insgesamt', money(result.deductionsAnnual)));
   elements.resultsPlaceholder.append(grid);
+
   const compare = document.createElement('div'); compare.className = 'comparison-box';
-  const compareTitle = document.createElement('h3'); compareTitle.textContent = 'Vergleich';
-  const compareText = document.createElement('p'); compareText.textContent = `${money(result.classicNetHourlyRate)} ohne Pendelzeit vs. ${money(result.effectiveHourlyRate)} real inklusive Pendelzeit und Fahrtkosten. Differenz: ${money(result.hourlyDifference)} (${result.reductionPercent.toFixed(1).replace('.', ',')} % Reduktion).`;
-  compare.append(compareTitle, compareText); elements.resultsPlaceholder.append(compare);
+  const compareTitle = document.createElement('h3'); compareTitle.textContent = 'Vergleich & Reduktion';
+  const compareText = document.createElement('p'); 
+  compareText.textContent = `${money(result.classicNetHourlyRate)} ohne Pendelzeit vs. ${money(result.effectiveHourlyRate)} real inklusive Pendelzeit und Fahrtkosten. Differenz: ${money(result.hourlyDifference)} (${result.reductionPercent.toFixed(1).replace('.', ',')} % Reduktion).`;
+  compare.append(compareTitle, compareText); 
+  elements.resultsPlaceholder.append(compare);
+
   const hints = document.createElement('ul'); hints.className = 'result-hints';
-  if (result.totalTimeAnnual > 0 && result.commuteHoursAnnual / result.totalTimeAnnual >= 0.2) { const item = document.createElement('li'); item.textContent = 'Pendeln macht einen hohen Anteil deiner insgesamt aufgewendeten Zeit aus.'; hints.append(item); }
-  if (result.netAnnual > 0 && result.commuteCostAnnual / result.netAnnual >= 0.1) { const item = document.createElement('li'); item.textContent = 'Die Fahrtkosten machen einen hohen Anteil deines Nettoeinkommens aus.'; hints.append(item); }
-  if (result.reductionPercent >= 20) { const item = document.createElement('li'); item.textContent = 'Der effektive Stundenlohn liegt deutlich unter dem klassischen Wert.'; hints.append(item); }
+  if (result.totalTimeAnnual > 0 && result.commuteHoursAnnual / result.totalTimeAnnual >= 0.2) { 
+    const item = document.createElement('li'); 
+    item.textContent = 'Pendeln macht einen hohen Anteil deiner insgesamt aufgewendeten Zeit aus.'; 
+    hints.append(item); 
+  }
+  if (result.netAnnual > 0 && result.commuteCostAnnual / result.netAnnual >= 0.1) { 
+    const item = document.createElement('li'); 
+    item.textContent = 'Die Fahrtkosten machen einen hohen Anteil deines Nettoeinkommens aus.'; 
+    hints.append(item); 
+  }
+  if (result.reductionPercent >= 20) { 
+    const item = document.createElement('li'); 
+    item.textContent = 'Der effektive Stundenlohn liegt deutlich unter dem klassischen Wert.'; 
+    hints.append(item); 
+  }
   if (hints.childElementCount) elements.resultsPlaceholder.append(hints);
+
+  // Result Action Buttons (Copy & Print)
+  const actionWrap = document.createElement('div');
+  actionWrap.className = 'result-actions';
+  
+  const copyBtn = document.createElement('button');
+  copyBtn.type = 'button';
+  copyBtn.className = 'button button-secondary';
+  copyBtn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg> Ergebnis kopieren';
+  copyBtn.addEventListener('click', () => {
+    const summaryText = `Gehalts-Transparenz-Rechner Ergebnis:\n• Effektiver Netto-Stundenlohn: ${money(result.effectiveHourlyRate)}\n• Klassischer Netto-Stundenlohn: ${money(result.classicNetHourlyRate)}\n• Nettoeinkommen/Jahr: ${money(result.netAnnual)}\n• Pendelzeit/Jahr: ${hours(result.commuteHoursAnnual)}\n• Fahrtkosten/Jahr: ${money(result.commuteCostAnnual)}`;
+    navigator.clipboard.writeText(summaryText).then(() => {
+      showToast('Ergebnis in die Zwischenablage kopiert!');
+    }).catch(() => {
+      showToast('Konnte nicht kopiert werden.');
+    });
+  });
+
+  const printBtn = document.createElement('button');
+  printBtn.type = 'button';
+  printBtn.className = 'button button-primary';
+  printBtn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg> Als PDF / Drucken';
+  printBtn.addEventListener('click', () => {
+    window.print();
+  });
+
+  actionWrap.append(copyBtn, printBtn);
+  elements.resultsPlaceholder.append(actionWrap);
+
   elements.resultsPlaceholder.setAttribute('aria-live', 'polite');
   elements.resultsPlaceholder.setAttribute('aria-label', `Effektiver Netto-Stundenlohn: ${money(result.effectiveHourlyRate)}`);
+}
+
+export function showToast(message) {
+  const existing = document.querySelector('.toast');
+  if (existing) existing.remove();
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = message;
+  document.body.append(toast);
+  setTimeout(() => toast.remove(), 3200);
 }
 
 export function renderState(state, elements) {

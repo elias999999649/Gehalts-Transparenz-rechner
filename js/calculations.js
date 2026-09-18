@@ -84,11 +84,13 @@ export function calculateNetHourlyWage(inputs) {
   const netAfterCommuteCosts = Math.max(0, netAnnual - commuteCostAnnual);
   const classicNetHourlyRate = time.paidHoursAnnual > 0 ? netAnnual / time.paidHoursAnnual : 0;
   const effectiveHourlyRate = time.totalTimeAnnual > 0 ? netAfterCommuteCosts / time.totalTimeAnnual : 0;
+  const hourlyDifference = Math.max(0, classicNetHourlyRate - effectiveHourlyRate);
+  const reductionPercent = classicNetHourlyRate > 0 ? hourlyDifference / classicNetHourlyRate * 100 : 0;
+
   if (![grossAnnual, ...Object.values(deductions), netAnnual, commuteCostAnnual, netAfterCommuteCosts, classicNetHourlyRate, effectiveHourlyRate, hourlyDifference, reductionPercent].every(Number.isFinite)) {
     return { valid: false, errors: [{ field: 'grossIncome', code: 'calculation-error', message: 'Die Werte sind zu groß für eine sichere Berechnung.' }], result: null };
   }
-  const hourlyDifference = Math.max(0, classicNetHourlyRate - effectiveHourlyRate);
-  const reductionPercent = classicNetHourlyRate > 0 ? hourlyDifference / classicNetHourlyRate * 100 : 0;
+
   return { valid: true, errors: [], result: { grossAnnual, netAnnual, ...deductions, workDaysAnnual: time.workDaysAnnual, paidHoursAnnual: time.paidHoursAnnual, unpaidBreakHoursAnnual: time.unpaidBreakHoursAnnual, workplaceHoursAnnual: time.workplaceHoursAnnual, commuteHoursAnnual: time.commuteHoursAnnual, totalTimeAnnual: time.totalTimeAnnual, commuteCostPerDay, commuteCostMonthly: commuteCostAnnual / 12, commuteCostAnnual, deductionsAnnual, classicNetHourlyRate, effectiveHourlyRate, hourlyDifference, reductionPercent, netAfterCommuteCosts, time } };
 }
 
